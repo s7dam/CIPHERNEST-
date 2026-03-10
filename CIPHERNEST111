@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CipherNest | الدليل التفاعلي</title>
+    <style>
+        :root {
+            --primary: #00ff41; /* لون الهاكر التقليدي */
+            --bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text: #e0e0e0;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            margin-bottom: 10px;
+        }
+        .status-bar {
+            background: var(--card-bg);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.1);
+        }
+        .card h3 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        #display-area {
+            margin-top: 30px;
+            padding: 25px;
+            background: #111;
+            border-right: 4px solid var(--primary);
+            min-height: 100px;
+            text-align: right;
+            border-radius: 0 8px 8px 0;
+            display: none;
+            line-height: 1.6;
+        }
+        .btn-contact {
+            margin-top: 40px;
+            padding: 15px 30px;
+            background: var(--primary);
+            color: black;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">CIPHERNEST</div>
+        <div class="status-bar" id="typing-status">نظام الحماية الرقمية جاهز...</div>
+
+        <div class="grid">
+            <div class="card" onclick="showContent('hacks')">
+                <h3>🔍 ما هو الاختراق؟</h3>
+                <p>افهم كيف يفكر المهاجمون.</p>
+            </div>
+            <div class="card" onclick="showContent('danger')">
+                <h3>⚠️ خطورة الهجمات</h3>
+                <p>لماذا يجب أن تقلق على بياناتك؟</p>
+            </div>
+            <div class="card" onclick="showContent('role')">
+                <h3>🚀 دور فريقنا</h3>
+                <p>كيف نحميك في CipherNest.</p>
+            </div>
+        </div>
+
+        <div id="display-area"></div>
+
+        <a href="https://github.com/CIPHERNEST" class="btn-contact">تواصل مع الفريق</a>
+    </div>
+
+    <script>
+        const content = {
+            hacks: "الاختراق ليس مجرد سرقة كلمات مرور، بل هو استغلال لثغرات تقنية أو بشرية للوصول إلى ما هو غير مسموح به. نحن في <b>CipherNest</b> نتخصص في 'الاختراق الأخلاقي' لنكشف هذه الثغرات قبل أن يجدها المخربون.",
+            danger: "هجمة واحدة قد تكلف المؤسسة سمعتها وسنوات من العمل. المخاطر تشمل: تسريب بيانات العملاء، الخسائر المادية المباشرة، وتوقف الخدمات الحيوية عن العمل تماماً.",
+            role: "فريقنا يقوم بعمل 'اختبار اختراق' (Penetration Testing) شامل. نقوم بمهاجمة نظامك كأننا مخترقون حقيقيون، ثم نقدم لك تقريراً مفصلاً بكيفية إغلاق هذه الأبواب للأبد."
+        };
+
+        function showContent(key) {
+            const display = document.getElementById('display-area');
+            display.style.display = 'block';
+            display.innerHTML = content[key];
+            display.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
