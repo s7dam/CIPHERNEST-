@@ -3,130 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CipherNest | الدليل التفاعلي</title>
+    <title>CipherNest | التميز البرمجي والأمني</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00ff41; /* لون الهاكر التقليدي */
-            --bg: #0a0a0a;
-            --card-bg: #1a1a1a;
-            --text: #e0e0e0;
+        :root { 
+            --neon-cyan: #00f2ff; 
+            --neon-purple: #7000ff;
+            --dark-bg: #010103; 
+            --card-bg: rgba(10, 10, 15, 0.8);
         }
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+
+        body { 
+            background-color: var(--dark-bg); 
+            /* خلفية جذابة بتدرج شعاعي يعطي عمقاً للموقع */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 242, 255, 0.1) 0%, transparent 40%);
+            color: white; 
+            font-family: 'Tajawal', sans-serif; 
+            margin: 0; 
+            min-height: 100vh;
         }
-        .container {
-            max-width: 800px;
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        
+        /* تأثيرات الظهور */
+        .page-section { display: none; animation: slideUp 0.6s ease-out; }
+        .active { display: block; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* الهيدر بتصميم زجاجي */
+        header { 
+            text-align: center; 
+            padding: 50px 0; 
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(5px);
+            border-radius: 0 0 40px 40px;
+            border-bottom: 1px solid rgba(0, 242, 255, 0.15);
+            margin-bottom: 50px;
+        }
+        .logo { 
+            font-size: 40px; 
+            font-weight: 900; 
+            background: linear-gradient(45deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(112, 0, 255, 0.3);
+            cursor: pointer;
+            letter-spacing: 2px;
+        }
+
+        /* كروت الخدمات الجذابة مع الصور */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .service-card { 
+            background: var(--card-bg); 
+            border-radius: 20px; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            overflow: hidden; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        .service-card:hover { 
+            border-color: var(--neon-cyan); 
+            transform: scale(1.04);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.15);
+        }
+        /* تصميم مكان الصورة الاحترافية */
+        .img-box { 
+            height: 200px; 
+            overflow: hidden;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .img-box img {
             width: 100%;
-            text-align: center;
+            height: 100%;
+            object-fit: cover; /* لضمان ملء الصورة للمكان دون تشويه */
+            transition: 0.5s;
         }
-        .logo {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-shadow: 0 0 10px var(--primary);
-            margin-bottom: 10px;
+        .service-card:hover .img-box img {
+            transform: scale(1.1); /* تأثير زوم خفيف عند التمرير */
         }
-        .status-bar {
-            background: var(--card-bg);
-            padding: 10px;
-            border-radius: 5px;
-            font-family: monospace;
-            margin-bottom: 30px;
-            border: 1px solid #333;
+        
+        .card-body { padding: 25px; text-align: center; }
+        .card-body h3 { margin: 0 0 12px; font-size: 20px; color: #fff; }
+        .card-body p { color: #aaaaaa; font-size: 14px; line-height: 1.6; }
+
+        /* تفاصيل الخدمة والنموذج */
+        .details-container { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; margin-top: 20px; }
+        @media (max-width: 768px) { .details-container { grid-template-columns: 1fr; } }
+        
+        .back-btn { color: var(--neon-cyan); cursor: pointer; font-weight: bold; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
+        
+        /* تصميم الصورة الكبيرة في صفحة التفاصيل */
+        .detail-img-box {
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid #222;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        .detail-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .card {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #333;
-            cursor: pointer;
-            transition: 0.3s;
+
+        .form-box { 
+            background: linear-gradient(145deg, rgba(20, 20, 30, 0.95), rgba(10, 10, 15, 0.95)); 
+            padding: 35px; 
+            border-radius: 25px; 
+            border: 1px solid rgba(112, 0, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
         }
-        .card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 255, 65, 0.1);
+        
+        input, select { 
+            width: 100%; padding: 16px; margin-bottom: 18px; 
+            background: rgba(0, 0, 0, 0.3); border: 1px solid #333; 
+            color: white; border-radius: 12px; font-family: 'Tajawal'; font-size: 15px;
         }
-        .card h3 {
-            color: var(--primary);
-            margin-top: 0;
+        input:focus { border-color: var(--neon-purple); outline: none; }
+
+        .btn-send { 
+            background: linear-gradient(45deg, var(--neon-purple), var(--neon-cyan)); 
+            color: white; border: none; padding: 18px; width: 100%; 
+            border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 17px; 
+            transition: 0.4s; text-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
-        #display-area {
-            margin-top: 30px;
-            padding: 25px;
-            background: #111;
-            border-right: 4px solid var(--primary);
-            min-height: 100px;
-            text-align: right;
-            border-radius: 0 8px 8px 0;
-            display: none;
-            line-height: 1.6;
-        }
-        .btn-contact {
-            margin-top: 40px;
-            padding: 15px 30px;
-            background: var(--primary);
-            color: black;
-            border: none;
-            border-radius: 30px;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
+        .btn-send:hover { 
+            letter-spacing: 1px;
+            box-shadow: 0 0 30px rgba(112, 0, 255, 0.5);
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="logo">CIPHERNEST</div>
-        <div class="status-bar" id="typing-status">نظام الحماية الرقمية جاهز...</div>
+<div class="container">
+    <header>
+        <div class="logo" onclick="showSection('home')">CipherNest</div>
+        <p style="color: var(--neon-cyan); opacity: 0.8; font-weight: bold; font-size: 15px;">احترافية برمجية وأمان سيبراني عالمي في العيون والجنوب</p>
+    </header>
 
-        <div class="grid">
-            <div class="card" onclick="showContent('hacks')">
-                <h3>🔍 ما هو الاختراق؟</h3>
-                <p>افهم كيف يفكر المهاجمون.</p>
+    <section id="home" class="page-section active">
+        <div class="services-grid">
+            <div class="service-card" onclick="showDetails('web')">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&auto=format&fit=cover" alt="تطوير متاجر إلكترونية">
+                </div>
+                <div class="card-body">
+                    <h3>تطوير المتاجر الذكية</h3>
+                    <p>منصات بيع متطورة تجذب العملاء وتضاعف أرباحك في وقت قياسي.</p>
+                </div>
             </div>
-            <div class="card" onclick="showContent('danger')">
-                <h3>⚠️ خطورة الهجمات</h3>
-                <p>لماذا يجب أن تقلق على بياناتك؟</p>
+            <div class="service-card" onclick="showDetails('security')">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?q=80&w=600&auto=format&fit=cover" alt="أمن سيبراني">
+                </div>
+                <div class="card-body">
+                    <h3>درع الأمن السيبراني</h3>
+                    <p>حماية بياناتك ومواقعك ضد الاختراق تحت إشراف سيدي القائد.</p>
+                </div>
             </div>
-            <div class="card" onclick="showContent('role')">
-                <h3>🚀 دور فريقنا</h3>
-                <p>كيف نحميك في CipherNest.</p>
+            <div class="service-card" onclick="showDetails('apps')">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=600&auto=format&fit=cover" alt="تطوير تطبيقات">
+                </div>
+                <div class="card-body">
+                    <h3>برمجة التطبيقات</h3>
+                    <p>نحول أفكارك الكبرى إلى تطبيقات جوال تكتسح المتاجر بأحدث التقنيات.</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div id="display-area"></div>
+    <section id="details" class="page-section">
+        <div class="back-btn" onclick="showSection('home')"> ⬅ العودة للرئيسية </div>
+        <div class="details-container">
+            <div class="info-side">
+                <div class="detail-img-box">
+                    <img id="service-detail-img" src="" alt="تفاصيل الخدمة">
+                </div>
+                <h1 id="service-title" style="font-size: 32px; margin-bottom: 15px; color: white;">الخدمة التقنية</h1>
+                <p id="service-desc" style="font-size: 16px; color: #ccc; line-height: 1.8; margin-bottom: 25px;"></p>
+                <div style="background: rgba(112, 0, 255, 0.08); padding: 25px; border-radius: 15px; border-right: 4px solid var(--neon-purple);">
+                    <ul id="service-features" style="list-style: none; padding: 0; margin: 0; font-size: 15px; color: white;">
+                        </ul>
+                </div>
+            </div>
+            
+            <div class="form-side">
+                <div class="form-box">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: white;">ابدأ مشروعك الاحترافي</h3>
+                    <input type="text" id="client_name" placeholder="الاسم الكامل أو اسم شركتك">
+                    <select id="budget_select">
+                        <option value="5000-10000">ميزانية بين 5,000 و 10,000 درهم</option>
+                        <option value="10000-20000">ميزانية بين 10,000 و 20,000 درهم</option>
+                        <option value="20000+">ميزانية تفوق 20,000 درهم</option>
+                    </select>
+                    <button class="btn-send" onclick="sendToWhatsapp()">🚀 إرسال الطلب لواتساب سيدي القائد</button>
+                    <p style="text-align: center; font-size: 12px; color: #666; margin-top: 15px;">فريق CipherNest سيتواصل معك في أقل من ساعتين.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
-        <a href="https://github.com/CIPHERNEST" class="btn-contact">تواصل مع الفريق</a>
-    </div>
-
-    <script>
-        const content = {
-            hacks: "الاختراق ليس مجرد سرقة كلمات مرور، بل هو استغلال لثغرات تقنية أو بشرية للوصول إلى ما هو غير مسموح به. نحن في <b>CipherNest</b> نتخصص في 'الاختراق الأخلاقي' لنكشف هذه الثغرات قبل أن يجدها المخربون.",
-            danger: "هجمة واحدة قد تكلف المؤسسة سمعتها وسنوات من العمل. المخاطر تشمل: تسريب بيانات العملاء، الخسائر المادية المباشرة، وتوقف الخدمات الحيوية عن العمل تماماً.",
-            role: "فريقنا يقوم بعمل 'اختبار اختراق' (Penetration Testing) شامل. نقوم بمهاجمة نظامك كأننا مخترقون حقيقيون، ثم نقدم لك تقريراً مفصلاً بكيفية إغلاق هذه الأبواب للأبد."
-        };
-
-        function showContent(key) {
-            const display = document.getElementById('display-area');
-            display.style.display = 'block';
-            display.innerHTML = content[key];
-            display.scrollIntoView({ behavior: 'smooth' });
+<script>
+    // بيانات الخدمات والصور المباشرة الاحترافية
+    const services = {
+        web: {
+            title: "تطوير المتاجر والمنصات الذكية",
+            desc: "نحن في CipherNest نبني لك واجهة تجارية تليق بطموحاتك، مع سرعة تصفح خيالية وتوافق كامل مع محركات البحث SEO، لضمان اكتساح سوق العيون والمغرب.",
+            features: ["✓ تصميم متجاوب (Responsive)", "✓ سرعة تحميل فائقة", "✓ حماية ضد الهجمات البرمجية", "✓ لوحة تحكم عربية بسيطة"],
+            img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=cover"
+        },
+        security: {
+            title: "الأمن السيبراني وحماية الأصول الرقمية",
+            desc: "الأمان ليس خياراً بل ضرورة. نقوم بتأمين سيرفراتك، فحص الثغرات، ووضع درع حماية سيبراني لا يمكن اختراقه تحت إشراف خبير وطني متخصص.",
+            features: ["✓ اختبار اختراق شامل (Pentesting)", "✓ تأمين حسابات ومواقع الشركات", "✓ تشفير قواعد البيانات الحساسة", "✓ تقارير أمنية دورية للفريق"],
+            img: "https://images.unsplash.com/photo-1563206767-5b18f218e8de?q=80&w=800&auto=format&fit=cover"
+        },
+        apps: {
+            title: "برمجة تطبيقات الجوال (iOS & Android)",
+            desc: "نصمم لك تجربة مستخدم فريدة بلمسات عالمية، تضمن لك تفاعل العملاء وسهولة الوصول لخدماتك عبر تطبيقات جوال احترافية وسريعة.",
+            features: ["✓ واجهات UI/UX عصرية", "✓ أداء سلس وسريع على كافة الأجهزة", "✓ ربط مع أنظمة الدفع المحلية والعالمية", "✓ دعم كامل للتحديثات المستقبلية"],
+            img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800&auto=format&fit=cover"
         }
-    </script>
+    };
+
+    let currentService = "";
+
+    function showSection(id) {
+        document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showDetails(type) {
+        currentService = services[type].title;
+        document.getElementById('service-title').innerText = services[type].title;
+        document.getElementById('service-desc').innerText = services[type].desc;
+        document.getElementById('service-detail-img').src = services[type].img; // تغيير صورة التفاصيل
+        
+        const list = document.getElementById('service-features');
+        list.innerHTML = "";
+        services[type].features.forEach(f => {
+            const li = document.createElement('li');
+            li.style.marginBottom = "12px";
+            li.innerText = f;
+            list.appendChild(li);
+        });
+        
+        showSection('details');
+    }
+
+    function sendToWhatsapp() {
+        const name = document.getElementById('client_name').value;
+        const budget = document.getElementById('budget_select').value;
+        
+        if(!name) { alert("يا سيدي القائد، يرجى كتابة الاسم لنتواصل معك بشكل صحيح وباحترافية."); return; }
+
+        const myNumber = "2126XXXXXXXX"; // استبدله برقم واتسابك الشخصي
+        const msg = `*طلب مشروع جديد لـ CipherNest*%0A%0A` +
+                    `🤖 *سيدي القائد، لدينا عميل بانتظارك:*%0A%0A` +
+                    `👤 *الاسم:* ${name}%0A` +
+                    `🛠 *الخدمة المطلوبة:* ${currentService}%0A` +
+                    `💰 *الميزانية:* ${budget} درهم%0A%0A` +
+                    `_يرجى مراجعة الطلب للبدء في التنفيذ في أسبوعين._`;
+        
+        window.open(`https://wa.me/${myNumber}?text=${msg}`, '_blank');
+    }
+</script>
+
 </body>
 </html>
